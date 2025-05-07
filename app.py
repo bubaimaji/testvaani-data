@@ -3,12 +3,11 @@ import pandas as pd
 import os
 from PIL import Image
 
-# ---- CONFIG ----
+
 CSV_PATH = "test_set_metadata_hi_cleaned.csv"  # Use the cleaned file
 st.set_page_config(page_title="Vaani-Hindi Test Set Viewer", layout="wide")
 st.title("Vaani-Hindi Test Set Viewer")
 
-# ---- Load CSV ----
 @st.cache_data
 def load_data():
     df = pd.read_csv(CSV_PATH)
@@ -17,16 +16,14 @@ def load_data():
 
 df = load_data()
 
-# ---- Sample selector ----
+
 total = len(df)
 idx = st.number_input(f"Choose a sample (1 to {total})", min_value=1, max_value=total, value=1, step=1)
 row = df.iloc[idx - 1]
 
-# ---- Path checking ----
 image_exists = os.path.exists(row["image_path"])
 audio_exists = os.path.exists(row["audio_path"])
 
-# ---- Layout ----
 col1, col2 = st.columns([1, 2])
 
 with col1:
