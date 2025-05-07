@@ -47,7 +47,7 @@ with col2:
     else:
         st.warning("Audio not found.")
 
-    st.subheader("Transcriptions (Whisper Translate Models)")
+    st.subheader("Translate (Whisper Models)")
     for model in ["tiny", "base", "small", "medium", "large"]:
         trans_col = f"transcription_{model}"
         conf_col = f"confidence_{model}"
