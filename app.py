@@ -3,12 +3,12 @@ import pandas as pd
 import os
 from PIL import Image
 
-# ---- CONFIG ----
-CSV_PATH = "gopalganj_sampled_200.csv"  # Use the cleaned file
+# --- Config ---
+CSV_PATH = "gopalganj_sampled_200.csv"
 st.set_page_config(page_title="Vaani-Hindi Test Set Viewer", layout="wide")
 st.title("Vaani-Hindi Test Set Viewer")
 
-# ---- Load CSV ----
+# --- Load Data ---
 @st.cache_data
 def load_data():
     df = pd.read_csv(CSV_PATH)
@@ -17,22 +17,24 @@ def load_data():
 
 df = load_data()
 
-# ---- Sample selector ----
+# --- Sample Selector ---
 total = len(df)
 idx = st.number_input(f"Choose a sample (1 to {total})", min_value=1, max_value=total, value=1, step=1)
 row = df.iloc[idx - 1]
 
-# ---- Path checking ----
-image_exists = os.path.exists(row["image_path"])
-audio_exists = os.path.exists(row["audio_path"])
+# --- Path Existence ---
+image_path = row["image_path"]
+audio_path = row["audio_path"]
+image_exists = os.path.exists(image_path)
+audio_exists = os.path.exists(audio_path)
 
-# ---- Layout ----
+# --- Layout ---
 col1, col2 = st.columns([1, 2])
 
 with col1:
     st.subheader("Image")
     if image_exists:
-        st.image(Image.open(row["image_path"]), caption=os.path.basename(row["image_path"]), use_container_width=True)
+        st.image(Image.open(image_path), caption=os.path.basename(image_path), use_container_width=True)
     else:
         st.warning("Image not found.")
 
@@ -42,7 +44,7 @@ with col2:
 
     st.subheader("Audio")
     if audio_exists:
-        with open(row["audio_path"], "rb") as f:
+        with open(audio_path, "rb") as f:
             st.audio(f.read(), format="audio/wav")
     else:
         st.warning("Audio not found.")
