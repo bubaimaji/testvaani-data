@@ -4,7 +4,7 @@ import os
 from PIL import Image
 
 # --- Config ---
-CSV_PATH = "gopalganj_sampled_200.csv"
+CSV_PATH = "gopalganj_sampled_200_cleaned.csv"
 st.set_page_config(page_title="Vaani-Hindi Test Set Viewer", layout="wide")
 st.title("Vaani-Hindi Test Set Viewer")
 
